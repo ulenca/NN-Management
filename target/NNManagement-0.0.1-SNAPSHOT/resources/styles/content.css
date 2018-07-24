@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+.greyButton {
+	background-color: #e7e7e7;
+	border: none;
+	color: black;
+	padding: 12px 27px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 14px;
+	margin-left: 1px;
+}

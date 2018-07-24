@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+	  xmlns:f="http://xmlns.jcp.org/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets">
+
+	<head>
+		<meta charset="UTF-8"/>
+		<title>Team</title>
+		<link rel="stylesheet" type="text/css" href="../styles/header.css"/>
+		<link rel="stylesheet" type="text/css" href="../styles/content.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+	
+		<ui:include src="Header.xhtml"/>
+		
+<!--                    Buttons                         -->
+		
+		<button type="button" class="greyButton" data-toggle="modal" data-target="#addTeamMember">Dodaj osobę</button>
+        
+
+<!--                     Modals                          -->
+
+			<!-- Modal -->
+			<div id="addTeamMember" class="modal fade" role="dialog">
+			  <div class="modal-dialog">
+			
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title">Osoba</h4>
+			      </div>
+			      <h:form>
+				      <div class="modal-body">
+				        <label for="name">Imię:</label>
+						<h:inputText value="Imię" class="form-control" id = "name"/>
+				        
+				        	
+				        
+	
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				            <h:form>
+				      		  <h:commandButton value="OK" type="submit" action="#{teamMemberController.displaySomethingFromDatabease()}" />
+				            </h:form>
+				      </div>
+			      </h:form>
+			    </div>
+			
+			  </div>
+			</div>
+	
+	</body>
+	
+</html>
