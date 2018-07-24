@@ -20,6 +20,10 @@
 	
 		<ui:include src="Header.xhtml"/>
 		
+<!-- 					Scripts				 		 -->
+
+
+		
 <!--                    Buttons                         -->
 		
 		<button type="button" class="greyButton" data-toggle="modal" data-target="#addTeamMember">Dodaj osobę</button>
@@ -59,15 +63,6 @@
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				        			        
 				        <h:commandButton value="OK" type="submit" class ="btn btn-primary" action="#{teamMemberController.addTeamMember()}"/>
-
-			            <!-- Script clears modal fields when closing the modal -->     
-				        <script type="text/javascript">
-								$('#addTeamMember').on('hidden.bs.modal', function () {
-								    $('.modal-body').find("input", "inputText").val('').end();
-								    console.log("inputs cleared");
-
-								});
-						</script>	
 
 				      </div>
 				      
@@ -110,22 +105,23 @@
 				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				        			        
 				        <h:commandButton value="OK" type="submit" class ="btn btn-primary" action="#{teamMemberController.updateTeamMember()}"/>
-				        			        
-				        <script type="text/javascript">
-								$('#editTeamMember').on('hidden.bs.modal', function () {
-								    $('.modal-body').find("input", "inputText").val('').end();
-								    console.log("inputs cleared");
-
-								});
-						</script>	
 
 				      </div>
-				      
+				  				      
 			      </h:form>
 			      
 			    </div>
 			
 			  </div>
+			  
+			<!-- Script clears modal fields when closing the modal -->
+			<script type="text/javascript">
+					$('.modal').on('hidden.bs.modal', function () {
+						 $('.modal-body').find("input", "inputText").val('').end();
+						console.log("inputs cleared");
+						});
+			</script>	
+			  
 			</div>
 			
 			
