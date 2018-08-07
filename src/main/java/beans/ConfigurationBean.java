@@ -1,4 +1,4 @@
-package controllers;
+package beans;
 import javax.faces.annotation.FacesConfig;
 import static javax.faces.annotation.FacesConfig.Version.JSF_2_3;
 

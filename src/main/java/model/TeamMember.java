@@ -10,7 +10,7 @@ public class TeamMember {
 
 	
 	public TeamMember(int id, String firstName, String lastName, String login, String password) {
-		this.setId(id);
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.login = login;

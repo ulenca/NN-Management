@@ -1,4 +1,4 @@
-package controllers;
+package beans;
 
 import javax.inject.Named;
 
@@ -9,15 +9,17 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import model.TeamMember;
+import validators.BeanValidator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.context.FacesContext;
 
 
 @Named
 @SessionScoped
-public class TeamMemberController implements Serializable{
+public class TeamMemberListBean implements Serializable{
 	
 	/**
 	 * 
@@ -52,7 +54,7 @@ public class TeamMemberController implements Serializable{
 			System.out.println("Adding team member...");
 			DBConnect db = new DBConnect();
 			db.insertData(firstName, lastName, login, password);
-			firstName = lastName = login = password = null;
+			clearTeamMember();
 			System.out.println("Team member added");
 			init();
 		}
@@ -76,6 +78,16 @@ public class TeamMemberController implements Serializable{
 			System.out.println("Record updated");
 			init();
 
+		}
+		
+		public void setSelectedTeamMember(TeamMember selectedTeamMember) {
+			this.selectedTeamMember = selectedTeamMember;
+			System.out.println("team member object " + selectedTeamMember.getFirstName() + " passed");
+		}
+
+		public void clearTeamMember() {
+			firstName = lastName = login = password = null;  //if not cleared, data would appear every next time when the new user window is open, but there should be better way to do that
+			System.out.println("Team member cleared");
 		}
 		
 		public void setId(int id) {		
@@ -132,10 +144,6 @@ public class TeamMemberController implements Serializable{
 			return selectedTeamMember;
 		}
 
-		public void setSelectedTeamMember(TeamMember selectedTeamMember) {
-			this.selectedTeamMember = selectedTeamMember;
-			System.out.println("team member object " + selectedTeamMember.getFirstName() + " passed");
-		}
 
 
 }
