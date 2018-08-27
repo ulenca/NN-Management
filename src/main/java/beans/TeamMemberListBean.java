@@ -2,6 +2,7 @@ package beans;
 
 import javax.inject.Named;
 
+
 import database.DBConnect;
 
 import java.io.Serializable;
@@ -10,11 +11,17 @@ import java.util.ArrayList;
 
 import model.TeamMember;
 import validators.BeanValidator;
+import validators.DuplicateValueValidator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ComponentSystemEvent;
+import javax.faces.validator.ValidatorException;
 
 
 @Named
@@ -52,11 +59,16 @@ public class TeamMemberListBean implements Serializable{
 		
 		public void addTeamMember() {
 			System.out.println("Adding team member...");
-			DBConnect db = new DBConnect();
-			db.insertData(firstName, lastName, login, password);
-			clearTeamMember();
-			System.out.println("Team member added");
-			init();
+			FacesContext fc = FacesContext.getCurrentInstance();
+			
+			if(!BeanValidator.isValueDuplicated(fc, login, teamMemberList)) {
+				DBConnect db = new DBConnect();
+				db.insertData(firstName, lastName, login, password);
+				System.out.println("Team member added");
+				clearTeamMember();
+				init();
+			} 
+			
 		}
 		
 		public void deleteTeamMember(TeamMember teamMember) {

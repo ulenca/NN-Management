@@ -2,9 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
 	  xmlns:f="http://xmlns.jcp.org/jsf/core"
-	  xmlns:ui="http://java.sun.com/jsf/facelets">
+	  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	  xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	  xmlns:jsf="http://xmlns.jcp.org/jsf">
 
-	<head>
+	<h:head>
 		<meta charset="UTF-8"/>
 		<title>Team</title>
 		<link rel="stylesheet" type="text/css" href="../styles/header.css"/>
@@ -12,21 +14,26 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
+	</h:head>
 
 	<body>
 	
 		<ui:include src="Header.xhtml"/>
 		
+<!-- 					Scripts				 		 -->
+
+
+		
 <!--                    Buttons                         -->
 		
-		<button type="button" class="greyButton" data-toggle="modal" data-target="#addTeamMember">Dodaj osobę</button>
+		<button type="button"  class="greyButton" onclick = "$('#addTeamMember').modal('show');">Dodaj osobę</button>
+		
         
-
 <!--                     Modals                          -->
 
 			<!-- Modal -->
 			<div id="addTeamMember" class="modal fade" role="dialog">
+			
 			  <div class="modal-dialog">
 			
 			    <!-- Modal content-->
@@ -34,26 +41,193 @@
 			      <div class="modal-header">
 			        <h4 class="modal-title">Osoba</h4>
 			      </div>
-			      <h:form>
+			      
+
+			      
+			      <h:form id="addTeamMemberForm">
+			      
+
+			      
 				      <div class="modal-body">
-				        <label for="name">Imię:</label>
-						<h:inputText value="Imię" class="form-control" id = "name"/>
-				        
-				        	
-				        
+				      		      				      
+					      	<h:messages class="alert alert-warning" />		
+					      	
+					   
+					   		<!-- Hidden flag for checking validation from server, used in script-->   	
+					        <div style="display:none;">
+				      	   		<h:panelGroup id="global_flag_validation_failed_render">
+	        						<h:outputText id="global_flag_validation_failed" value="#{facesContext.validationFailed}"/>
+	    				   		</h:panelGroup>
+	    		      		</div>      	
+	
+					        <label for="name">Imię:</label>
+							<h:inputText a:placeholder="Imię" value="#{teamMemberListBean.firstName}" class="form-control" id="name" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
+							</h:inputText>
+					        
+					        <label for="lastName">Nazwisko:</label>
+							<h:inputText a:placeholder="Nazwisko" value="#{teamMemberListBean.lastName}" class="form-control" id = "lastName" required="true" requiredMessage="Pole Nazwisko jest obowiązkowe! ">
+							</h:inputText>
+							
+							<label for="login">Login:</label>
+							<h:inputText a:placeholder="Login" value="#{teamMemberListBean.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Login jest obowiązkowe! ">
+							</h:inputText>
+	
+							<label for="password">Hasło:</label>
+							<h:inputText a:placeholder="Hasło" value="#{teamMemberListBean.password}" class="form-control" id = "password"  required="true" requiredMessage="Pole Hasło jest obowiązkowe! ">
+							</h:inputText>	
+								        
 	
 				      </div>
+				      
 				      <div class="modal-footer">
-				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				            <h:form>
-				      		  <h:commandButton value="OK" type="submit" action="#{teamMemberController.displaySomethingFromDatabease()}" />
-				            </h:form>
+				      
+					        <h:commandButton value="Close" class="btn btn-default" action="#{teamMemberListBean.clearTeamMember()}">
+					        	<f:ajax render="@form tableForm" onevent="closeModal1" />
+					        </h:commandButton> 
+					         
+					        <h:commandButton value="OK" type="submit" class ="btn btn-primary" action="#{teamMemberListBean.addTeamMember()}">
+					         	<f:ajax render="@form tableForm addTeamMemberForm global_flag_validation_failed_render" execute="@form" onevent="closeModal1"></f:ajax>
+					        </h:commandButton>
+					        
+								        	<!-- Script for closing the modal if validation is fine -->
+							<script type="text/javascript">
+						         function closeModal1(data) {
+						        	 	console.log("Is validation failed:");
+						        	 	console.log(document.getElementById('addTeamMemberForm:global_flag_validation_failed').innerText);
+								        if(data.status === 'success' &amp;&amp; document.getElementById('addTeamMemberForm:global_flag_validation_failed').innerText ==="false") {
+									            $('#addTeamMember').modal("hide");
+									            $('.modal-backdrop').remove();
+									            console.log("modal closed");
+								        }
+								    }
+								    
+						   </script>
+						   			
+						
 				      </div>
+				      
 			      </h:form>
+			      
 			    </div>
 			
 			  </div>
 			</div>
+			
+			
+			<!-- Modal -->
+			<div id="editTeamMember" class="modal fade" role="dialog">
+			
+			  <div class="modal-dialog">
+			
+			    <!-- Modal content-->
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h4 class="modal-title">Osoba</h4>
+			      </div>
+			      
+			      <h:form id="editTeamMemberForm">
+				      <div class="modal-body">
+				      
+				        <h:messages class="alert alert-warning" />		
+				        
+				        <div style="display:none;">
+			      	   		<h:panelGroup id="global_flag_validation_failed_render2">
+        						<h:outputText id="global_flag_validation_failed2" value="#{facesContext.validationFailed}"/>
+    				   		</h:panelGroup>
+    		      		</div> 
+				      		        
+				        <label for="name">Imię:</label>
+					    <h:inputText value="#{teamMemberListBean.selectedTeamMember.firstName}" class="form-control" id = "name" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
+						</h:inputText>
+				        
+				        <label for="lastName">Nazwisko:</label>
+						<h:inputText value="#{teamMemberListBean.selectedTeamMember.lastName}" class="form-control" id = "lastName" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
+						</h:inputText>
+						
+						<label for="login">Login:</label>
+						<h:inputText value="#{teamMemberListBean.selectedTeamMember.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
+						</h:inputText>
+							        
+	
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        			        
+				        <h:commandButton value="OK" type="submit" class ="btn btn-primary" action="#{teamMemberListBean.updateTeamMember()}">
+				        	<f:ajax render="@form tableForm editTeamMemberForm global_flag_validation_failed_render2" execute="@form" onevent="closeModal2"></f:ajax>
+				        </h:commandButton>
+				        
+				        <!-- Script for closing the modal if validation is fine -->
+						<script type="text/javascript">
+					         function closeModal2(data) {
+					        	 	console.log("Is validation failed:");
+					        	 	console.log(document.getElementById('editTeamMemberForm:global_flag_validation_failed2').innerText);
+							        if(data.status === 'success' &amp;&amp; document.getElementById('editTeamMemberForm:global_flag_validation_failed2').innerText ==="false") {
+								            $('#editTeamMember').modal("hide");
+								            $('.modal-backdrop').remove();
+								            console.log("modal closed");
+							        }
+							    }
+					   </script>
+					   
+					   			<!-- Script clears modal fields when closing the modal -->
+						<script type="text/javascript">
+								$('.modal').on('hidden.bs.modal', function () {
+									 $('.modal-body').find("input", "inputText", "alert").val('').end();
+									console.log("inputs cleared");
+									});
+						</script>
+					
+				      </div>
+				  				      
+			      </h:form>
+			      
+			    </div>
+			
+			  </div>
+			
+			</div>
+			
+			
+			
+<!--             DataTable                  -->
+
+    	<h:form id = "tableForm">
+				      	    
+    		<h:dataTable value="#{teamMemberListBean.teamMemberList}" var="t" class="table">
+
+    			<h:column>
+    				<!-- column header -->
+    				<f:facet name="header">First name</f:facet>
+    				#{t.firstName}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Last Name</f:facet>
+    				#{t.lastName}
+    			</h:column>
+    			
+    			<h:column>
+    				<f:facet name="header">Login</f:facet>
+    				#{t.login}
+    			</h:column>
+    			
+    			<h:column>
+    			    <f:facet name="header">Edytuj</f:facet>
+    				<h:commandLink id="edit" onclick = "$('#editTeamMember').modal('show');">
+    					<span class="glyphicon glyphicon-edit"></span>
+    					<f:ajax render="editTeamMemberForm"/>
+    					<f:setPropertyActionListener target = "#{teamMemberListBean.selectedTeamMember}" value = "#{t}" />
+    				</h:commandLink>
+				</h:column>
+				
+    			<h:column>
+    			    <f:facet name="header">Usuń</f:facet>
+    				<h:commandLink class = "glyphicon glyphicon-remove" id="remove" action="#{teamMemberListBean.deleteTeamMember(t)}" onclick="return confirm('Czy na pewno?')"/>
+				</h:column>
+				
+    		</h:dataTable>
+	   </h:form>
 	
 	</body>
 	

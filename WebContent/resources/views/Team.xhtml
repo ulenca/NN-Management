@@ -49,8 +49,9 @@
 
 			      
 				      <div class="modal-body">
-				      
-					      	<h:messages class="alert alert-warning" />			
+				      		      				      
+					      	<h:messages class="alert alert-warning" />		
+					      	
 					   
 					   		<!-- Hidden flag for checking validation from server, used in script-->   	
 					        <div style="display:none;">
@@ -60,23 +61,19 @@
 	    		      		</div>      	
 	
 					        <label for="name">Imię:</label>
-							<h:inputText a:placeholder="Imię" value="#{teamMemberListBean.firstName}" class="form-control" id = "name">
-								<f:validator validatorId="notEmptyValidator" />
+							<h:inputText a:placeholder="Imię" value="#{teamMemberListBean.firstName}" class="form-control" id="name" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
 							</h:inputText>
 					        
 					        <label for="lastName">Nazwisko:</label>
-							<h:inputText a:placeholder="Nazwisko" value="#{teamMemberListBean.lastName}" class="form-control" id = "lastName">
-								<f:validator validatorId="notEmptyValidator" />
+							<h:inputText a:placeholder="Nazwisko" value="#{teamMemberListBean.lastName}" class="form-control" id = "lastName" required="true" requiredMessage="Pole Nazwisko jest obowiązkowe! ">
 							</h:inputText>
 							
 							<label for="login">Login:</label>
-							<h:inputText a:placeholder="Login" value="#{teamMemberListBean.login}" class="form-control" id = "login">
-								<f:validator validatorId="notEmptyValidator" />
+							<h:inputText a:placeholder="Login" value="#{teamMemberListBean.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Login jest obowiązkowe! ">
 							</h:inputText>
 	
 							<label for="password">Hasło:</label>
-							<h:inputText a:placeholder="Hasło" value="#{teamMemberListBean.password}" class="form-control" id = "password">
-								<f:validator validatorId="notEmptyValidator" />
+							<h:inputText a:placeholder="Hasło" value="#{teamMemberListBean.password}" class="form-control" id = "password"  required="true" requiredMessage="Pole Hasło jest obowiązkowe! ">
 							</h:inputText>	
 								        
 	
@@ -140,18 +137,15 @@
     		      		</div> 
 				      		        
 				        <label for="name">Imię:</label>
-					    <h:inputText value="#{teamMemberListBean.selectedTeamMember.firstName}" class="form-control" id = "name">
-					    	<f:validator validatorId="notEmptyValidator" />
+					    <h:inputText value="#{teamMemberListBean.selectedTeamMember.firstName}" class="form-control" id = "name" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
 						</h:inputText>
 				        
 				        <label for="lastName">Nazwisko:</label>
-						<h:inputText value="#{teamMemberListBean.selectedTeamMember.lastName}" class="form-control" id = "lastName">
-							<f:validator validatorId="notEmptyValidator" />
+						<h:inputText value="#{teamMemberListBean.selectedTeamMember.lastName}" class="form-control" id = "lastName" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
 						</h:inputText>
 						
 						<label for="login">Login:</label>
-						<h:inputText value="#{teamMemberListBean.selectedTeamMember.login}" class="form-control" id = "login" >
-							<f:validator validatorId="notEmptyValidator" />
+						<h:inputText value="#{teamMemberListBean.selectedTeamMember.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
 						</h:inputText>
 							        
 	

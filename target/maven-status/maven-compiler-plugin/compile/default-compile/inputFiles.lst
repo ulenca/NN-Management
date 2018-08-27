@@ -1,3 +1,6 @@
 C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\DBConnect.java
-C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\controllers\ConfigurationBean.java
-C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\controllers\TeamMemberController.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\validators\DuplicateValueValidator.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\validators\BeanValidator.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\TeamMemberListBean.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\ConfigurationBean.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\model\TeamMember.java
