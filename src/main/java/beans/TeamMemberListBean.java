@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import model.TeamMember;
 import validators.BeanValidator;
-import validators.DuplicateValueValidator;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
