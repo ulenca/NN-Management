@@ -13,24 +13,17 @@ import model.TeamMember;
 import validators.BeanValidator;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.validator.ValidatorException;
 
 
 @Named
 @SessionScoped
 public class TeamMemberListBean implements Serializable{
 	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<TeamMember> teamMemberList;
 	private String firstName;
 	private String lastName;
