@@ -1,13 +1,18 @@
 package model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="network")
@@ -20,23 +25,23 @@ public class NetworkItem implements Serializable {
 	@Column(name="id")
 	private int id;
 	
-	@Column(name="team_member_first_id")
-	private int tm1;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="team_member_first_id")
+	private TeamMember tm1;
 	
-	@Column(name="team_member_second_id")
-	private int tm2;
+	@Transient
+	private String tm1Name;
+	
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="team_member_second_id")
+	private TeamMember tm2;
+	
+	@Transient
+	private String tm2Name;
 	
 	@Column(name="value")
 	private int bondingValue;
 	
-	public NetworkItem(int id,int tm1, int tm2, int bondingValue) {
-		this.id=id;
-		this.setTm1(tm1);
-		this.setTm2(tm2);
-		this.setBondingValue(bondingValue);
-	}
-	
-	//hibernate requires default constructor
 	public NetworkItem() {
 		
 	}
@@ -44,24 +49,29 @@ public class NetworkItem implements Serializable {
 	public int getId() {
 		return id;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int getTm1() {
+	
+	public TeamMember getTm1(){
 		return tm1;
 	}
-
-	public void setTm1(int tm1) {
+	
+	public void setTm1(TeamMember tm1) {
 		this.tm1 = tm1;
 	}
-
-	public int getTm2() {
-		return tm2;
+	
+	public String getTm1Name() {
+		return tm1.getFirstName() + " " + tm1.getLastName();
 	}
 
-	public void setTm2(int tm2) {
+	public TeamMember getTm2(){
+		return tm2;
+	}
+	
+	public void setTm2(TeamMember tm2) {
 		this.tm2 = tm2;
+	}
+	
+	public String getTm2Name() {
+		return tm2.getFirstName() + " " + tm2.getLastName();
 	}
 
 	public double getBondingValue() {
@@ -71,7 +81,7 @@ public class NetworkItem implements Serializable {
 	public void setBondingValue(int bondingValue) {
 		this.bondingValue = bondingValue;
 	}
-	
-	
+
+
 
 }

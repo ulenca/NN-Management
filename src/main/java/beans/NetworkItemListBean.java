@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -14,7 +15,7 @@ import model.NetworkItem;
 import java.io.Serializable;
 
 @Named
-@SessionScoped
+@RequestScoped
 public class NetworkItemListBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;

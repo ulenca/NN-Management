@@ -42,6 +42,10 @@ public class TeamMember implements Serializable{
 		this.password = password;
 	}
 	
+	public TeamMember() {
+		
+	}
+	
 	public String getFirstName() {
 		return firstName;
 	}
