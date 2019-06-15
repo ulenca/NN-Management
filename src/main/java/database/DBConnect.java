@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import model.TeamMember;
 
+// This class is not used anymore, this was for jdbc which is now replaced with hibernate
 public class DBConnect{
 	
 	private Connection con;

@@ -24,7 +24,7 @@ public class NetworkItemListBean implements Serializable {
 	private static final Logger logger = Logger.getLogger("NetworkItemListBean");
 	
 	@Inject NetworkItemService networkItemService;
-	@Inject DBservice<NetworkItem> dbService;
+//	@Inject DBservice<NetworkItem> dbService;
 	
 	private List<NetworkItem> networkItems;
 	

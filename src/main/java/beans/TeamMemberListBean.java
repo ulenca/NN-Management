@@ -1,14 +1,20 @@
 package beans;
 
+import javax.inject.Inject;
 import javax.inject.Named;
 
 
 import database.DBConnect;
+import database.DBservice;
+import database.NetworkItemService;
+import database.TeamMemberService;
 
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
+import model.NetworkItem;
 import model.TeamMember;
 import validators.BeanValidator;
 
@@ -24,7 +30,10 @@ public class TeamMemberListBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	private ArrayList<TeamMember> teamMemberList;
+	@Inject TeamMemberService teamMemberService;
+//	@Inject DBservice<NetworkItem> dbService;
+	
+	private List<TeamMember> teamMemberList;
 	private String firstName;
 	private String lastName;
 	private String login;
@@ -35,18 +44,8 @@ public class TeamMemberListBean implements Serializable{
 	
 		@PostConstruct
 		public void init() {
-			
-			DBConnect db = new DBConnect();
-			
-			System.out.println("Database connection object constructed");
-			System.out.println("Trying to get data...");
-			
-			try {
-				teamMemberList = db.getData();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}	
-			System.out.println("Data loaded");
+
+			teamMemberList = teamMemberService.findAll();
 		}
 		
 		public void addTeamMember() {
@@ -54,9 +53,7 @@ public class TeamMemberListBean implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 			
 			if(!BeanValidator.isValueDuplicated(fc, login, teamMemberList)) {
-				DBConnect db = new DBConnect();
-				db.insertData(firstName, lastName, login, password);
-				System.out.println("Team member added");
+				teamMemberService.save(new TeamMember(firstName, lastName, login, password));   //!!!!!!!!!!!!!! Figure out is it possible not to use this parameter and use default constructor only
 				clearTeamMember();
 				init();
 			} 
@@ -66,8 +63,7 @@ public class TeamMemberListBean implements Serializable{
 		public void deleteTeamMember(TeamMember teamMember) {
 			
 			System.out.println("Trying to remove record.." + teamMember.getFirstName());
-			DBConnect db = new DBConnect();
-			db.deleteRecord(teamMember);
+			teamMemberService.delete(teamMember);
 			System.out.println("Record removed");
 			init();
 
@@ -76,9 +72,7 @@ public class TeamMemberListBean implements Serializable{
 		public void updateTeamMember() {
 			
 			System.out.println("Trying to update record.." + selectedTeamMember.getFirstName());
-			DBConnect db = new DBConnect();
-			TeamMember teamMember = new TeamMember(selectedTeamMember.getId(), selectedTeamMember.getFirstName(), selectedTeamMember.getLastName(), selectedTeamMember.getLogin(), selectedTeamMember.getPassword());
-			db.updateRecord(teamMember);
+			teamMemberService.save(selectedTeamMember);
 			System.out.println("Record updated");
 			init();
 
@@ -103,11 +97,11 @@ public class TeamMemberListBean implements Serializable{
 			return id;
 		}
 		
-		public void setTeamMemberList(ArrayList<TeamMember> teamMemberList) {
+		public void setTeamMemberList(List<TeamMember> teamMemberList) {
 			this.teamMemberList = teamMemberList;
 		}
 		
-		public ArrayList<TeamMember> getTeamMemberList(){
+		public List<TeamMember> getTeamMemberList(){
 			return teamMemberList;
 		}
 		

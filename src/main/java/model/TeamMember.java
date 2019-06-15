@@ -33,7 +33,7 @@ public class TeamMember implements Serializable{
 	@Column(name="password")
 	private String password;
 
-	
+
 	public TeamMember(int id, String firstName, String lastName, String login, String password) {
 		this.id = id;
 		this.firstName = firstName;
@@ -41,6 +41,14 @@ public class TeamMember implements Serializable{
 		this.login = login;
 		this.password = password;
 	}
+	
+	public TeamMember(String firstName, String lastName, String login, String password) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.login = login;
+		this.password = password;
+	}
+	
 	
 	public TeamMember() {
 		

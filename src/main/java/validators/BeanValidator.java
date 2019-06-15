@@ -1,6 +1,7 @@
 package validators;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;
@@ -11,7 +12,7 @@ import model.TeamMember;
 
 public class BeanValidator {
 	
-	public static boolean isValueDuplicated(FacesContext fc, String componentVal, ArrayList<TeamMember> list){
+	public static boolean isValueDuplicated(FacesContext fc, String componentVal, List<TeamMember> list){
 		
 		  	System.out.println("chceckForDuplicates method invoked");
 			System.out.println("value passed " + componentVal);
