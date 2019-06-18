@@ -9,7 +9,6 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import database.DBservice;
 import database.NetworkItemService;
 
 import model.NetworkItem;
@@ -20,19 +19,14 @@ import java.io.Serializable;
 public class NetworkItemListBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final Logger logger = Logger.getLogger("NetworkItemListBean");
 	
 	@Inject NetworkItemService networkItemService;
-//	@Inject DBservice<NetworkItem> dbService;
-	
+
 	private List<NetworkItem> networkItems;
 	
 	@PostConstruct
 	private void init() {
 		networkItems=networkItemService.findAll();
-		//trying to use generic service
-		//networkItems=dbService.findAll(); 
 	}
 
 	public List<NetworkItem> getNetworkItems() {

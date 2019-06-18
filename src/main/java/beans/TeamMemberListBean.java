@@ -3,18 +3,13 @@ package beans;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-
-import database.DBConnect;
-import database.DBservice;
-import database.NetworkItemService;
 import database.TeamMemberService;
 
 import java.io.Serializable;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 import java.util.List;
 
-import model.NetworkItem;
+
 import model.TeamMember;
 import validators.BeanValidator;
 
@@ -31,7 +26,6 @@ public class TeamMemberListBean implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	@Inject TeamMemberService teamMemberService;
-//	@Inject DBservice<NetworkItem> dbService;
 	
 	private List<TeamMember> teamMemberList;
 	private String firstName;
