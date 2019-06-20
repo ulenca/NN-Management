@@ -9,6 +9,7 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org
     <description> Hibernate JPA Configuration Example</description>
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <jta-data-source>java:/NNManagementDS</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="hibernate.show_sql" value="true" />
       <property name="hibernate.hbm2ddl.auto" value="none" />

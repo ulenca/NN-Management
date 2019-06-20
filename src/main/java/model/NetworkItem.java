@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -20,20 +21,30 @@ public class NetworkItem implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	
+	public NetworkItem(TeamMember tm1, TeamMember tm2, int bondingValue) {
+		this.tm1 = tm1;
+		this.tm2 = tm2;
+		this.bondingValue = bondingValue;
+	}
+	
+	public NetworkItem() {
+		
+	}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="id")
 	private int id;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="team_member_first_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="team_member_first_id", referencedColumnName = "id")
 	private TeamMember tm1;
 	
 	@Transient
 	private String tm1Name;
 	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="team_member_second_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="team_member_second_id", referencedColumnName = "id")
 	private TeamMember tm2;
 	
 	@Transient
@@ -42,9 +53,7 @@ public class NetworkItem implements Serializable {
 	@Column(name="value")
 	private int bondingValue;
 	
-	public NetworkItem() {
-		
-	}
+
 	
 	public int getId() {
 		return id;
