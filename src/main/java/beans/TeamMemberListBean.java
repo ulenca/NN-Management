@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.List;
 
 import model.NetworkItem;
+import model.Role;
 import model.TeamMember;
 import validators.BeanValidator;
 
@@ -35,6 +36,7 @@ public class TeamMemberListBean implements Serializable{
 	private String login;
 	private String password;
 	private int id;
+	private Role role;
 	private TeamMember selectedTeamMember;
 	
 	
@@ -49,7 +51,7 @@ public class TeamMemberListBean implements Serializable{
 			FacesContext fc = FacesContext.getCurrentInstance();
 			
 			if(!BeanValidator.isValueDuplicated(fc, login, teamMemberList)) {
-				TeamMember newTM = new TeamMember(firstName, lastName, login, password);
+				TeamMember newTM = new TeamMember(firstName, lastName, login, password, role);
 				teamMemberService.save(newTM);
 				addNetworkItems(newTM.getLogin());
 				clearTeamMember();
@@ -58,7 +60,7 @@ public class TeamMemberListBean implements Serializable{
 			
 		}
 		
-		//adds rows to the network table to connect new teammember with others
+		//adds rows to the network table to connect new team member with others
 		public void addNetworkItems(String login) {
 			TeamMember newTM = teamMemberService.findByLogin(login);
 			for(TeamMember e: teamMemberList) {
@@ -70,14 +72,23 @@ public class TeamMemberListBean implements Serializable{
 		
 		public void deleteTeamMember(TeamMember teamMember) {
 			
-			System.out.println("Trying to remove record.." + teamMember.getFirstName());
+			deleteNetworkItems(teamMember.getLogin());
 			teamMemberService.delete(teamMember);
 			System.out.println("Record removed");
 			init();
 
 		}
+		
+		public void deleteNetworkItems(String login) {
+			List<NetworkItem> networkItemsList = networkItemService.findAll();
+			for(NetworkItem e: networkItemsList) {
+				if (e.getTm1().getLogin().equals(login) || e.getTm2().getLogin().equals(login)) {
+					networkItemService.delete(e);
+				}
+			}
+		}
 			
-		public void updateTeamMember() {
+		public void updateTeamMember() { 
 			
 			System.out.println("Trying to update record.." + selectedTeamMember.getFirstName());
 			teamMemberService.save(selectedTeamMember);
@@ -86,14 +97,17 @@ public class TeamMemberListBean implements Serializable{
 
 		}
 		
-		public void setSelectedTeamMember(TeamMember selectedTeamMember) {
-			this.selectedTeamMember = selectedTeamMember;
-			System.out.println("team member object " + selectedTeamMember.getFirstName() + " passed");
-		}
-
 		public void clearTeamMember() {
 			firstName = lastName = login = password = null;  //if not cleared, data would appear every next time when the new user window is open, but there should be better way to do that
 			System.out.println("Team member cleared");
+		}
+		
+		public void setSelectedTeamMember(TeamMember selectedTeamMember) {
+			this.selectedTeamMember = selectedTeamMember;
+		}
+		
+		public TeamMember getSelectedTeamMember() {
+			return selectedTeamMember;
 		}
 		
 		
@@ -147,8 +161,18 @@ public class TeamMemberListBean implements Serializable{
 			this.password = password;
 		}
 
-		public TeamMember getSelectedTeamMember() {
-			return selectedTeamMember;
+
+
+		public Role[] getRoles() {
+			return Role.values();
+		}
+		
+		public Role getRole() {
+			return role;
+		}
+
+		public void setRole(Role role) {
+			this.role = role;
 		}
 
 

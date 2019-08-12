@@ -8,20 +8,49 @@
 <head>
 	<meta charset="UTF-8"/>
 	<title>NNManagement</title>
-
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 	<body>
 	
-		<h1>NN Management</h1>
+
+		<div class="container">	
+
+				<div class='col-md-3'></div>
+		        <div class="col-md-6">
+				<h:form class="login-box well">
+				
+					<div class="form-group">
+				
+						<h1>NN Management</h1>
+					
+						<div>
+							<h:outputLabel for="userName" value="User"/>
+							<h:inputText id="userName" value="#{loginBean.userName}"
+										 required="true"
+										 requiredMessege="Please enter username"
+										 class="form-control"/>
+						</div>
+						
+						<div>
+							<h:outputLabel for="password" value="Password"/>
+							<h:inputSecret id="password" value="#{loginBean.password}"
+										   required="true"
+										   requiredMessage="Please enter password"
+										   class="form-control"/>
+						</div>
+						
+						<div>
+							<h:commandButton action="#{loginBean.login}" value="Login" class="btn btn-default"/>
+						</div>
+						
+						
+					</div>
+				</h:form>	
+				</div>
+			<div class='col-md-3'></div>	
 		
-		<h:form>
-		
-			<h:inputText>Login</h:inputText>
-			<h:inputText>Password</h:inputText>
-			
-			<h:button value="Login_test" outcome="resources/views/Team.xhtml"/>
-			
-		</h:form>	
-		
+		</div>
 	</body>
 </html>

@@ -27,7 +27,7 @@ public class CrudAbstractService<T> {
 		CriteriaQuery<T> cq = getEntityManager().getCriteriaBuilder().createQuery(entityClass);
 		cq.select(cq.from(entityClass));
 		Query query = getEntityManager().createQuery(cq);
-		System.out.println("Network items size: " + query.getResultList().size());
+		System.out.println("List size: " + query.getResultList().size());
 		return getEntityManager().createQuery(cq).getResultList();
 	}
 	

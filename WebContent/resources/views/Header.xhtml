@@ -17,13 +17,14 @@
 	</h:head>
 
 	<body>
-	
+	<h:form>
 		<ul>
 			<li><a class = "#{view.viewId eq '/resources/views/Tasks.xhtml' ? 'active' : ''}" href="Tasks.xhtml">Zadania</a></li>
 			<li><a class = "#{view.viewId eq '/resources/views/Network.xhtml' ? 'active' : ''}" href="Network.xhtml">Sieć</a></li>
 			<li><a class = "#{view.viewId eq '/resources/views/Team.xhtml' ? 'active' : ''}" href="Team.xhtml">Zespół</a></li>
-		</ul>
-		
+			<li><a href="resources/views/Login.xhtml" jsf:action="#{loginBean.logout}">Logout</a></li>
+		</ul>			
+	</h:form>
 	
 	</body>
 </html>

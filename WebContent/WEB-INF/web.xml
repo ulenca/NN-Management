@@ -13,13 +13,11 @@
 	
 	<servlet-mapping>
     	<servlet-name>FacesServlet</servlet-name>
-    	<url-pattern>faces/* </url-pattern>
-    	<url-pattern>*.jsf</url-pattern>
         <url-pattern>*.xhtml</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
-    	<welcome-file>faces/Login.xhtml</welcome-file>
+    	<welcome-file>Login.xhtml</welcome-file>
 	</welcome-file-list>
 
 	 <context-param>
@@ -46,5 +44,16 @@
 	  <param-name>javax.faces.ENABLE_WEBSOCKET_ENDPOINT</param-name>
 	  <param-value>true</param-value>
 	 </context-param> 
+	 
+	 <login-config>
+	    <auth-method>FORM</auth-method>
+	 	<realm-name>web-security-domain</realm-name>
+	 	<form-login-config>
+	 		<form-login-page>/Login.xhtml</form-login-page>
+	 		<form-error-page>/loginError.xhtml</form-error-page>
+	 	</form-login-config>
+	 </login-config>
+	 
+
 	
 </web-app>
