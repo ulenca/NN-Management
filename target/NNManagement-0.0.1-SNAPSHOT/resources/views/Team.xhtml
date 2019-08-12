@@ -67,6 +67,12 @@
 					        <label for="lastName">Nazwisko:</label>
 							<h:inputText a:placeholder="Nazwisko" value="#{teamMemberListBean.lastName}" class="form-control" id = "lastName" required="true" requiredMessage="Pole Nazwisko jest obowiązkowe! ">
 							</h:inputText>
+
+						     <label for="lastName">Rola:</label><br/>						
+							 <h:selectOneMenu value="#{teamMemberListBean.role}" class="form-control">
+	   						 <f:selectItems  value="#{teamMemberListBean.roles}" />
+							 </h:selectOneMenu>
+
 							
 							<label for="login">Login:</label>
 							<h:inputText a:placeholder="Login" value="#{teamMemberListBean.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Login jest obowiązkowe! ">
@@ -147,6 +153,11 @@
 						<label for="login">Login:</label>
 						<h:inputText value="#{teamMemberListBean.selectedTeamMember.login}" class="form-control" id = "login" required="true" requiredMessage="Pole Imię jest obowiązkowe! ">
 						</h:inputText>
+						
+					   <label for="lastName">Rola:</label><br/>						
+					   <h:selectOneMenu value="#{teamMemberListBean.selectedTeamMember.role}" class="form-control" id = "role">
+	   				   <f:selectItems  value="#{teamMemberListBean.roles}" />
+					   </h:selectOneMenu>
 							        
 	
 				      </div>
@@ -210,6 +221,11 @@
     			<h:column>
     				<f:facet name="header">Login</f:facet>
     				#{t.login}
+    			</h:column>
+    			
+    			 <h:column>
+    				<f:facet name="header">Role</f:facet>
+    				#{t.role}
     			</h:column>
     			
     			<h:column>

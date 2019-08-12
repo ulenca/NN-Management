@@ -16,12 +16,12 @@ import model.TeamMember;
 import validators.BeanValidator;
 
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 
 
 @Named
-@SessionScoped
+@ViewScoped
 public class TeamMemberListBean implements Serializable{
 	
 

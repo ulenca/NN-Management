@@ -1,6 +1,13 @@
-C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\DBConnect.java
-C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\validators\DuplicateValueValidator.java
-C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\validators\BeanValidator.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\CrudInteface.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\model\NetworkItem.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\TeamMemberService.java
 C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\TeamMemberListBean.java
 C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\ConfigurationBean.java
 C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\model\TeamMember.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\DBConnect.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\NetworkItemListBean.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\NetworkItemService.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\validators\BeanValidator.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\beans\LoginBean.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\model\Role.java
+C:\Users\Ula\NNMworkspace\NNManagement\src\main\java\database\CrudAbstractService.java
