@@ -2,14 +2,20 @@ package beans;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
+import database.TeamMemberService;
+import model.Role;
+
 @Named
 @RequestScoped
 public class LoginBean{
+	
 
 	private String userName;
 	private String password;
@@ -28,7 +34,7 @@ public class LoginBean{
 			return "Login.xhtml";
 		}
 		
-		return "resources/views/Team.xhtml?faces-redirect=true";
+		return "resources/views/Tasks.xhtml?faces-redirect=true";
 	}
 	
 	public String logout() {
@@ -45,8 +51,6 @@ public class LoginBean{
 		return "/Login.xhtml?faces-redirect=true";
 		
 	}
-	
-	
 	
 	public String getUserName() {
 		return userName;

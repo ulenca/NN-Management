@@ -26,7 +26,9 @@
 		
 <!--                    Buttons                         -->
 		
+		<h:panelGroup rendered="#{teamMemberListBean.hasPermissionToEditTeamMember}">
 		<button type="button"  class="greyButton" onclick = "$('#addTeamMember').modal('show');">Dodaj osobę</button>
+		</h:panelGroup>
 		
         
 <!--                     Modals                          -->
@@ -201,6 +203,9 @@
 			
 			
 			
+
+  
+
 <!--             DataTable                  -->
 
     	<h:form id = "tableForm">
@@ -230,7 +235,7 @@
     			
     			<h:column>
     			    <f:facet name="header">Edytuj</f:facet>
-    				<h:commandLink id="edit" onclick = "$('#editTeamMember').modal('show');">
+    				<h:commandLink id="edit" onclick = "$('#editTeamMember').modal('show');" rendered="#{teamMemberListBean.hasPermissionToEditTeamMember}">
     					<span class="glyphicon glyphicon-edit"></span>
     					<f:ajax render="editTeamMemberForm"/>
     					<f:setPropertyActionListener target = "#{teamMemberListBean.selectedTeamMember}" value = "#{t}" />
@@ -239,7 +244,7 @@
 				
     			<h:column>
     			    <f:facet name="header">Usuń</f:facet>
-    				<h:commandLink class = "glyphicon glyphicon-remove" id="remove" action="#{teamMemberListBean.deleteTeamMember(t)}" onclick="return confirm('Czy na pewno?')"/>
+    				<h:commandLink class = "glyphicon glyphicon-remove" id="remove" action="#{teamMemberListBean.deleteTeamMember(t)}" onclick="return confirm('Czy na pewno?')" rendered="#{teamMemberListBean.hasPermissionToEditTeamMember}"/>
 				</h:column>
 				
     		</h:dataTable>

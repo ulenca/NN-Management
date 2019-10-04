@@ -1,6 +1,10 @@
 package model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,13 +13,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="team_member")
 public class TeamMember implements Serializable{
 	
-
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -38,6 +42,9 @@ public class TeamMember implements Serializable{
 	@Enumerated(EnumType.STRING)
 	@Column(name="role")
 	private Role role;
+	
+	@ManyToMany(mappedBy="assignedMembers")
+	private Set<Task> tasks = new HashSet<Task>();
 
 	
 	public TeamMember(String firstName, String lastName, String login, String password, Role role) {
@@ -51,6 +58,11 @@ public class TeamMember implements Serializable{
 	
 	public TeamMember() {
 		
+	}
+	
+	@Override
+	public String toString() {
+		return firstName + " " + lastName;
 	}
 	
 	public String getFirstName() {
@@ -99,6 +111,14 @@ public class TeamMember implements Serializable{
 
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public Set<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(Set<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 

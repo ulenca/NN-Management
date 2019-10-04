@@ -2,6 +2,7 @@ package beans;
 
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import database.NetworkItemService;
 import database.TeamMemberService;
@@ -9,6 +10,7 @@ import database.TeamMemberService;
 import java.io.Serializable;
 
 import java.util.List;
+import java.util.Map;
 
 import model.NetworkItem;
 import model.Role;
@@ -16,6 +18,9 @@ import model.TeamMember;
 import validators.BeanValidator;
 
 import javax.annotation.PostConstruct;
+import javax.faces.annotation.ManagedProperty;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
@@ -29,6 +34,7 @@ public class TeamMemberListBean implements Serializable{
 	
 	@Inject TeamMemberService teamMemberService;
 	@Inject NetworkItemService networkItemService;
+	@Inject LoggedUserInfo loggedUserInfo;
 	
 	private List<TeamMember> teamMemberList;
 	private String firstName;
@@ -38,25 +44,31 @@ public class TeamMemberListBean implements Serializable{
 	private int id;
 	private Role role;
 	private TeamMember selectedTeamMember;
+	private boolean hasPermissionToEditTeamMember;
 	
 	
 		@PostConstruct
 		public void init() {
 
 			teamMemberList = teamMemberService.findAll();
+			hasPermissionToEditTeamMember = loggedUserInfo.isLoggedUserInOneOfRoles(
+					List.of(Role.ADMIN, Role.MANAGER), 
+					FacesContext.getCurrentInstance().getExternalContext());
 		}
 		
+		
 		public void addTeamMember() {
-			System.out.println("Adding team member...");
-			FacesContext fc = FacesContext.getCurrentInstance();
 			
-			if(!BeanValidator.isValueDuplicated(fc, login, teamMemberList)) {
-				TeamMember newTM = new TeamMember(firstName, lastName, login, password, role);
-				teamMemberService.save(newTM);
-				addNetworkItems(newTM.getLogin());
-				clearTeamMember();
-				init();
-			} 
+			FacesContext fc = FacesContext.getCurrentInstance();
+				System.out.println("Adding team member...");
+				
+				if(!BeanValidator.isValueDuplicated(fc, login, teamMemberList)) {
+					TeamMember newTM = new TeamMember(firstName, lastName, login, password, role);
+					teamMemberService.save(newTM);
+					addNetworkItems(newTM.getLogin());
+					clearTeamMember();
+					init();
+				} 
 			
 		}
 		
@@ -96,6 +108,7 @@ public class TeamMemberListBean implements Serializable{
 			init();
 
 		}
+		
 		
 		public void clearTeamMember() {
 			firstName = lastName = login = password = null;  //if not cleared, data would appear every next time when the new user window is open, but there should be better way to do that
@@ -161,8 +174,6 @@ public class TeamMemberListBean implements Serializable{
 			this.password = password;
 		}
 
-
-
 		public Role[] getRoles() {
 			return Role.values();
 		}
@@ -173,6 +184,10 @@ public class TeamMemberListBean implements Serializable{
 
 		public void setRole(Role role) {
 			this.role = role;
+		}
+
+		public boolean isHasPermissionToEditTeamMember() {
+			return hasPermissionToEditTeamMember;
 		}
 
 

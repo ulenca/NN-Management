@@ -3,6 +3,7 @@ package model;
 public enum Role {
 	
 	MEMBER,
-	ADMIN
+	ADMIN,
+	MANAGER
 
 }
